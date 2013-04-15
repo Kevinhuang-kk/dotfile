@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+file_path=`pwd`
+home_path=$HOME"/"
+file_path=$file_path"/"
+file_ls=`ls _*`
+
+function bak_file_name
+{
+    i=1
+    file_old_bak=$1"."$i
+    while [ -e $file_old_bak ]
+    do
+        i=$(($i+1))
+        file_old_bak=$1"."$i
+    done
+    echo $file_old_bak
+}
+
+function bak_file
+{
+    file_old_bak=$1".bak"
+    if [ -e $file_old_bak ]; then
+        file_old_bak=`bak_file_name $file_old_bak`
+    fi
+    echo $file_old_bak
+}
+
+for file_name in $file_ls
+do
+    file_temp="."`echo $file_name | awk '{ print substr( $0, 2, length($0) ) }'`
+    
+    file_old=$home_path$file_temp
+
+    if [ -e $file_old ]; then
+        file_old_bak=`bak_file $file_old`
+        mv $file_old $file_old_bak
+    fi
+
+    ln $file_name $file_old
+done
+
+source ~/.profile
+
+vundle_file=$HOME"/.vim/bundle/vundle"
+vundle_git="http://github.com/gmarik/vundle.git"
+
+if [ -e $vundle_file ]; then
+    echo "Vundle existed"
+else
+    echo "git clone" $vundle_git $vundle_file
+    git clone $vundle_git $vundle_file
+fi
+
+vim -c 'BundleInstall' -c 'q' -c 'q'
+
+echo "done"
+

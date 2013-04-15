@@ -1,0 +1,17 @@
+[user]
+	name = kevinhuang
+	email = kevinhuang@kkbox.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	log = auto
+[alias]
+	ci = commit
+	st = status
+	co = checkout
+	df = diff
+	lg = log -p
+    br = branch
+[core]
+	pager = less -XRMSI 
