@@ -31,13 +31,18 @@ do
     file_temp="."`echo $file_name | awk '{ print substr( $0, 2, length($0) ) }'`
     
     file_old=$home_path$file_temp
+    file_name=${home_path}dotfile/$file_name
 
+    if [ -L $file_old ]; then
+        unlink $file_old
+    fi
+    
     if [ -e $file_old ]; then
         file_old_bak=`bak_file $file_old`
         mv $file_old $file_old_bak
     fi
 
-    ln $file_name $file_old
+    ln -s $file_name $file_old
 done
 
 source ~/.profile
