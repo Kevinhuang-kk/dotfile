@@ -42,6 +42,8 @@ DIR_STICKY=Ex
 DIR_WO_STICKY=Ex
 export LSCOLORS="$DIR$SYM_LINK$SOCKET$PIPE$EXE$BLOCK_SP$CHAR_SP$EXE_SUID$EXE_GUID$DIR_STICKY$DIR_WO_STICKY"
 
+export CVSROOT=":pserver:kevinhuang@cvs.skysoft.com.tw:/home/ncvs"
+
 alias ls="ls -G"
 alias ll="ls -Gla"
 alias grep="grep --color=auto"
